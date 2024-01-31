@@ -12,11 +12,11 @@ const getItems = (category = "", setItems) => {
 };
 
 const getCategories = (setCategories) => {
-  axios
+  return axios
     .get("https://nc-marketplace-sem-4.onrender.com/api/categories")
     .then(({ data }) => {
-      //   setCategories(data.categories);
-      console.log(data.categories);
+      if (setCategories) setCategories(data.categories);
+      //console.log(data.categories);
       return data.categories;
     });
 };

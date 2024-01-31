@@ -11,8 +11,7 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    console.log("hi");
-    return setCategories(getCategories());
+    getCategories(setCategories);
   }, []);
 
   return (

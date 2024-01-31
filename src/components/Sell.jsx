@@ -1,8 +1,9 @@
 import { getCategories } from "../api/api";
 
 const Sell = () => {
-  const categories = getCategories();
-  console.log(categories);
+  getCategories().then((categories) => {
+    console.log(categories, "<<categories in sell");
+  });
   return (
     <div>
       <form>
@@ -19,6 +20,7 @@ const Sell = () => {
       </form>
     </div>
   );
+  //console.log(getCategories, "<< categories in sell");
 };
 
 export default Sell;
