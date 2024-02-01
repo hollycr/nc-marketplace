@@ -8,17 +8,32 @@ const getItems = (category = "", setItems) => {
     .then(({ data }) => {
       const { items } = data;
       setItems(items);
+    })
+    .catch((err) => {
+      console.log(err, "<< err");
     });
 };
 
 const getCategories = (setCategories) => {
-  return axios
+  axios
     .get("https://nc-marketplace-sem-4.onrender.com/api/categories")
     .then(({ data }) => {
       if (setCategories) setCategories(data.categories);
-      //console.log(data.categories);
       return data.categories;
+    })
+    .catch((err) => {
+      console.log(err, "<< err");
     });
 };
 
-export { getItems, getCategories };
+const postItem = (item) => {
+  return axios
+    .post("https://nc-marketplace-sem-4.onrender.com/api/items", item)
+    .then((res) => {
+      console.log(res, "<< axios res from post");
+    })
+    .catch((err) => {
+      console.log(err, "<< err");
+    });
+};
+export { getItems, getCategories, postItem };

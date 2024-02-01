@@ -4,12 +4,12 @@ import Categories from "./Categories";
 import Sell from "./Sell";
 import User from "./User";
 
-const NavigationManager = () => {
+const NavigationManager = ({ categories }) => {
   return (
     <>
       <ul>
         <li>
-          <Categories />
+          <Categories categories={categories} />
         </li>
         <li>
           <Link to="/sell">

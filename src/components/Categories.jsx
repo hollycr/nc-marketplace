@@ -1,19 +1,11 @@
-import { getCategories } from "../api/api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Categories = () => {
-  const [categories, setCategories] = useState([]);
+const Categories = ({ categories }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    getCategories(setCategories);
-  }, []);
-
   return (
     <div className="dropdown">
       <button onClick={handleOpen}>Categories</button>

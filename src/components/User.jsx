@@ -1,8 +1,16 @@
+import UserBalance from "./UserBalance";
+import Basket from "./Basket";
+import UserOrders from "./UserOrders";
 
 const User = () => {
   return (
-    <div>User</div>
-  )
-}
+    <>
+      <p>User</p>
+      <UserBalance />
+      <Basket />
+      <UserOrders />
+    </>
+  );
+};
 
-export default User
+export default User;

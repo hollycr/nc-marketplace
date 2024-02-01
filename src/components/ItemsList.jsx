@@ -3,7 +3,7 @@ import Item from "./Item";
 import { getItems } from "../api/api";
 import { useParams } from "react-router-dom";
 
-const ItemsList = () => {
+const ItemsList = ({ setBasket }) => {
   const { category } = useParams();
   const [items, setItems] = useState([]);
 
@@ -18,7 +18,7 @@ const ItemsList = () => {
         {items.map((item) => {
           return (
             <li key={item.item_id}>
-              <Item item={item} />
+              <Item setBasket={setBasket} item={item} />
             </li>
           );
         })}
