@@ -1,6 +1,15 @@
-const Item = ({ item, setBasket }) => {
+import { postToBasket } from "../api/api";
+import { useState } from "react";
+
+const Item = ({ item, username }) => {
+  console.log(username, "<< username in item");
+  const [usernameLoggedIn, setUsernameLoggedIn] = useState(username);
+  const [buttonText, setButtonText] = useState("add to basket");
   function addToBasket() {
-    setBasket((currentBasket) => [...currentBasket, item]);
+    console.log(item, "<< item in addtobasket");
+    usernameLoggedIn
+      ? postToBasket({ item_id: item.item_id }, usernameLoggedIn)
+      : setButtonText("not logged in");
   }
 
   return (
@@ -10,7 +19,7 @@ const Item = ({ item, setBasket }) => {
       <p>Price: £{item.price / 100}</p>
       <p>Description: {item.description}</p>
       <img src={item.img_url} alt="" />
-      <button onClick={addToBasket}>add to basket</button>
+      <button onClick={addToBasket}>{buttonText}</button>
     </div>
   );
 };

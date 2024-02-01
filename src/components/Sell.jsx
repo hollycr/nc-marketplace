@@ -1,7 +1,14 @@
 import { getCategories, postItem } from "../api/api";
 import { useEffect, useState } from "react";
 
-const Sell = ({ categories, setCategories }) => {
+const Sell = () => {
+  const [categoriesToDisplay, setCategoriesToDisplay] = useState([]);
+  useEffect(() => {
+    getCategories().then((res) => {
+      setCategoriesToDisplay(res);
+    });
+  }, []);
+
   const [successfulPost, setSuccessfulPost] = useState(false);
 
   function handleSubmit(event) {
@@ -105,7 +112,7 @@ const Sell = ({ categories, setCategories }) => {
             })
           }
         >
-          {categories.map((cat) => (
+          {categoriesToDisplay.map((cat) => (
             <option key={`${cat.category_name}1`} value={cat.category_name}>
               {cat.category_name}
             </option>

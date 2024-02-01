@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getCategories } from "../api/api";
 
-const Categories = ({ categories }) => {
+const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    getCategories().then((res) => {
+      setCategories(res);
+    });
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => {
     setIsOpen(!isOpen);

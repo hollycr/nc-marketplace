@@ -9,32 +9,32 @@ import Search from "./components/Search";
 import NavigationManager from "./components/NavigationManager";
 import Sell from "./components/Sell";
 import User from "./components/User";
+import Login from "./components/Login";
 
 function App() {
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    getCategories(setCategories);
-  }, []);
+  const [username, setUsername] = useState("");
 
-  const [basket, setBasket] = useState([]);
-  console.log(basket, "<< basket");
+  // login/user - use api
+
   return (
     <>
       <Header />
       <Search />
-      <NavigationManager categories={categories} />
+      <NavigationManager username={username} />
       <Routes>
-        <Route path="/" element={<ItemsList setBasket={setBasket} />} />
+        <Route path="/" element={<ItemsList username={username} />} />
+        <Route path="/sell" element={<Sell />} />
         <Route
-          path="/sell"
-          element={
-            <Sell categories={categories} setCategories={setCategories} />
-          }
+          path="/user/:username"
+          element={<User username={username} setUsername={setUsername} />}
         />
-        <Route path="/user" element={<User basket={basket} setBasket={setBasket}/>} />
         <Route
           path="/buy/:category"
-          element={<ItemsList setBasket={setBasket} />}
+          element={<ItemsList username={username} />}
+        />
+        <Route
+          path="/login"
+          element={<Login username={username} setUsername={setUsername} />}
         />
       </Routes>
     </>

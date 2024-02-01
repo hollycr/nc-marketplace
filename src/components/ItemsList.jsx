@@ -3,12 +3,15 @@ import Item from "./Item";
 import { getItems } from "../api/api";
 import { useParams } from "react-router-dom";
 
-const ItemsList = ({ setBasket }) => {
+const ItemsList = ({ setBasket, username }) => {
+  console.log(username, "<< username in itemsList");
   const { category } = useParams();
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    return getItems(category, setItems);
+    getItems(category).then((res) => {
+      setItems(res);
+    });
   }, [category]);
 
   return (
@@ -18,7 +21,7 @@ const ItemsList = ({ setBasket }) => {
         {items.map((item) => {
           return (
             <li key={item.item_id}>
-              <Item setBasket={setBasket} item={item} />
+              <Item username={username} item={item} />
             </li>
           );
         })}

@@ -4,12 +4,12 @@ import Categories from "./Categories";
 import Sell from "./Sell";
 import User from "./User";
 
-const NavigationManager = ({ categories }) => {
+const NavigationManager = ({ username }) => {
   return (
     <>
       <ul>
         <li>
-          <Categories categories={categories} />
+          <Categories />
         </li>
         <li>
           <Link to="/sell">
@@ -17,9 +17,15 @@ const NavigationManager = ({ categories }) => {
           </Link>
         </li>
         <li>
-          <Link to="/user">
-            <button>User</button>
-          </Link>
+          {username ? (
+            <Link to={`/user/${username}`}>
+              <button>User</button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+          )}
         </li>
       </ul>
     </>

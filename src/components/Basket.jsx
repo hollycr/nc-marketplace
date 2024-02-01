@@ -1,4 +1,9 @@
-function Basket({ basket, setBasket }) {
+import { useState } from "react";
+
+function Basket() {
+  const [basket, setBasket] = useState([]);
+  //console.log(basket, "<< basket in basket");
+
   function removeFromBasket(id) {
     // console.log(id);
     // setBasket((currentBasket) => {
