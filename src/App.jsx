@@ -31,7 +31,7 @@ function App() {
             <Sell categories={categories} setCategories={setCategories} />
           }
         />
-        <Route path="/user" element={<User />} />
+        <Route path="/user" element={<User basket={basket} setBasket={setBasket}/>} />
         <Route
           path="/buy/:category"
           element={<ItemsList setBasket={setBasket} />}
