@@ -10,6 +10,7 @@ import NavigationManager from "./components/NavigationManager";
 import Sell from "./components/Sell";
 import User from "./components/User";
 import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -35,6 +36,10 @@ function App() {
         <Route
           path="/login"
           element={<Login username={username} setUsername={setUsername} />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup />}
         />
       </Routes>
     </>

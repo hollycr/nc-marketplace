@@ -2,7 +2,6 @@ import { postToBasket } from "../api/api";
 import { useState } from "react";
 
 const Item = ({ item, username }) => {
-  console.log(username, "<< username in item");
   const [usernameLoggedIn, setUsernameLoggedIn] = useState(username);
   const [buttonText, setButtonText] = useState("add to basket");
   function addToBasket() {

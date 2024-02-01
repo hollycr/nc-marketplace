@@ -60,8 +60,17 @@ const postToBasket = (item, username) => {
 };
 
 // get users/:username/basket
+const getUsers = () => {
+  return axios
+    .get("https://nc-marketplace-sem-4.onrender.com/api/users")
+    .then(({data}) => {
+      const {users}=data
+      return users;
+    });
+};
+
 // post users/:username/basket
 // delete users/:username/basket
 
 // - should we create users first?
-export { getItems, getCategories, postItem, postToBasket };
+export { getItems, getCategories, postItem, postToBasket, getUsers };
