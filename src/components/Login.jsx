@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUsers } from "../api/api";
 import User from "./User";
 import { Link } from "react-router-dom";
+import UserContext from "../context/UserContext";
 
-function Login({ setUsername, username }) {
+function Login() {
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
+
   const [currentUsers, setCurrentUsers] = useState([]);
-  const [invalidUsername, setInvalidUsername] = useState("");
+  const [invalidUsernameMessage, setInvalidUsernameMessage] = useState("");
 
   useEffect(() => {
     getUsers().then((data) => {
@@ -22,11 +25,14 @@ function Login({ setUsername, username }) {
     );
     console.log(validUsers, "<<valid Users");
     if (validUsers.length === 0) {
-      setInvalidUsername("Invalid Username! Please Sign Up!");
+      setInvalidUsernameMessage("Invalid Username! Please Sign Up!");
+    } else {
+      setLoggedInUser(validUsers[0]);
     }
   }
-  return username ? (
-    <User username={username} setUsername={setUsername} />
+  console.log(loggedInUser.username, "loggedin user");
+  return loggedInUser.username ? (
+    <User />
   ) : (
     <>
       <h3>Log in page</h3>
@@ -42,9 +48,9 @@ function Login({ setUsername, username }) {
         />
         <button>Log in</button>
       </form>
-      {invalidUsername && (
+      {invalidUsernameMessage && (
         <div>
-          <p>{invalidUsername}</p>
+          <p>{invalidUsernameMessage}</p>
           <Link to="/signup">
             <button>Sign Up</button>
           </Link>

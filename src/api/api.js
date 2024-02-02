@@ -59,18 +59,65 @@ const postToBasket = (item, username) => {
     });
 };
 
+const getBasket = (username) => {
+  return axios
+    .get(
+      `https://nc-marketplace-sem-4.onrender.com/api/users/${username}/basket`
+    )
+    .then(({ data }) => {
+      const { items } = data;
+      console.log(items, "getBasket data");
+      return items;
+    });
+};
+
+const deleteFromBasket = (username, id) => {
+  return axios
+    .delete(
+      `https://nc-marketplace-sem-4.onrender.com/api/users/${username}/basket/${id}`
+    )
+    .then((data) => {
+      console.log(data, "delete");
+    });
+};
+
 // get users/:username/basket
 const getUsers = () => {
   return axios
     .get("https://nc-marketplace-sem-4.onrender.com/api/users")
-    .then(({data}) => {
-      const {users}=data
+    .then(({ data }) => {
+      const { users } = data;
       return users;
     });
+};
+
+const postUser = (user) => {
+  return axios
+    .post(`https://nc-marketplace-sem-4.onrender.com/api/users`, user)
+    .then(({ data }) => {
+      const { user } = data;
+      console.log(user);
+      return user;
+    });
+};
+
+const postOrder = (username, id) => {
+  return axios.post(
+    `https://nc-marketplace-sem-4.onrender.com/api/users/${username}/orders`
+  );
 };
 
 // post users/:username/basket
 // delete users/:username/basket
 
 // - should we create users first?
-export { getItems, getCategories, postItem, postToBasket, getUsers };
+export {
+  getItems,
+  getCategories,
+  postItem,
+  postToBasket,
+  getBasket,
+  getUsers,
+  deleteFromBasket,
+  postUser,
+};

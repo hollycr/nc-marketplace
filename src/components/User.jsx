@@ -1,17 +1,20 @@
 import UserBalance from "./UserBalance";
 import Basket from "./Basket";
 import UserOrders from "./UserOrders";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 
-const User = ({ username, setUsername }) => {
+const User = () => {
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   // const { username } = getParams;
   // conditional rendering? log in if no username? username state in app
   function logOut() {
-    setUsername("");
+    setLoggedInUser({});
   }
 
   return (
     <>
-      <p>{username} logged in</p>
+      <p>{loggedInUser.username} logged in</p>
       <UserBalance />
       <Basket />
       <UserOrders />

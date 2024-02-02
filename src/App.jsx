@@ -11,9 +11,10 @@ import Sell from "./components/Sell";
 import User from "./components/User";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import UserContext from "./context/UserContext";
 
 function App() {
-  const [username, setUsername] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState({});
 
   // login/user - use api
 
@@ -21,27 +22,17 @@ function App() {
     <>
       <Header />
       <Search />
-      <NavigationManager username={username} />
-      <Routes>
-        <Route path="/" element={<ItemsList username={username} />} />
-        <Route path="/sell" element={<Sell />} />
-        <Route
-          path="/user/:username"
-          element={<User username={username} setUsername={setUsername} />}
-        />
-        <Route
-          path="/buy/:category"
-          element={<ItemsList username={username} />}
-        />
-        <Route
-          path="/login"
-          element={<Login username={username} setUsername={setUsername} />}
-        />
-        <Route
-          path="/signup"
-          element={<Signup />}
-        />
-      </Routes>
+      <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
+        <NavigationManager />
+        <Routes>
+          <Route path="/" element={<ItemsList />} />
+          <Route path="/sell" element={<Sell />} />
+          <Route path="/user/:username" element={<User />} />
+          <Route path="/buy/:category" element={<ItemsList />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </UserContext.Provider>
     </>
   );
 }

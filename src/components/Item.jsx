@@ -1,13 +1,14 @@
 import { postToBasket } from "../api/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import UserContext from "../context/UserContext";
 
-const Item = ({ item, username }) => {
-  const [usernameLoggedIn, setUsernameLoggedIn] = useState(username);
+const Item = ({ item }) => {
+  const { loggedInUser } = useContext(UserContext);
   const [buttonText, setButtonText] = useState("add to basket");
   function addToBasket() {
     console.log(item, "<< item in addtobasket");
-    usernameLoggedIn
-      ? postToBasket({ item_id: item.item_id }, usernameLoggedIn)
+    loggedInUser.username
+      ? postToBasket({ item_id: item.item_id }, loggedInUser.username)
       : setButtonText("not logged in");
   }
 

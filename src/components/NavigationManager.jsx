@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Categories from "./Categories";
-import Sell from "./Sell";
-import User from "./User";
+import UserContext from "../context/UserContext";
 
-const NavigationManager = ({ username }) => {
+const NavigationManager = () => {
+  const { loggedInUser } = useContext(UserContext);
   return (
     <>
       <ul>
@@ -17,8 +17,8 @@ const NavigationManager = ({ username }) => {
           </Link>
         </li>
         <li>
-          {username ? (
-            <Link to={`/user/${username}`}>
+          {loggedInUser.username ? (
+            <Link to={`/user/${loggedInUser.username}`}>
               <button>User</button>
             </Link>
           ) : (

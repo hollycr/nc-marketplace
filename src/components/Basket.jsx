@@ -1,31 +1,52 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { getBasket, deleteFromBasket } from "../api/api";
+import UserContext from "../context/UserContext";
 
 function Basket() {
   const [basket, setBasket] = useState([]);
+  const [deletedItems, setDeletedItems] = useState(1);
+  console.log(deletedItems);
   //console.log(basket, "<< basket in basket");
+  const { loggedInUser } = useContext(UserContext);
 
-  function removeFromBasket(id) {
-    // console.log(id);
-    // setBasket((currentBasket) => {
-    //   const arr=[...currentBasket]
-    //   const filteredArray=arr.filter((item) => item.item_id !== id)
-    //   return filteredArray
-    // });
+  useEffect(() => {
+    getBasket(loggedInUser.username).then((data) => {
+      setBasket(data);
+    });
+  }, [deletedItems]);
+
+  function removeFromBasket(event) {
+    const id = event.target.value;
+    deleteFromBasket(loggedInUser.username, id).then(() => {
+      setDeletedItems((currentDeletedItem) => {
+        return (currentDeletedItem += 1);
+      });
+    });
   }
 
+  function orderItem(event){
+    const id = event.target.value;
+
+  }
+
+  let counter = 1;
   return (
     <>
       <p>user basket</p>
       {basket.map((item) => {
         return (
-          <li key={`Basket ${item.item_id}`}>
+          <li key={`Basket ${counter}`}>
+            <p>Item: {counter++}</p>
             <h4>Id:{item.item_id}</h4>
             <h3>Name: {item.item_name}</h3>
             <p>Price: £{item.price / 100}</p>
             <p>Description: {item.description}</p>
             <img src={item.img_url} alt="" />
-            <button onClick={removeFromBasket(item.item_id)}>
+            <button value={item.item_id} onClick={removeFromBasket}>
               Remove Item
+            </button>
+            <button value={item.item_id} onClick={orderItem}>
+              Order Item
             </button>
           </li>
         );
