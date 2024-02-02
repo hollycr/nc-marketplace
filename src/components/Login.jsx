@@ -25,7 +25,7 @@ function Login() {
     );
     console.log(validUsers, "<<valid Users");
     if (validUsers.length === 0) {
-      setInvalidUsernameMessage("Invalid Username! Please Sign Up!");
+      setInvalidUsernameMessage("We couldn't find that user - please sign up!");
     } else {
       setLoggedInUser(validUsers[0]);
     }
