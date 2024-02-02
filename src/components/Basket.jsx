@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { getBasket, deleteFromBasket } from "../api/api";
+import { getBasket, deleteFromBasket, postOrder } from "../api/api";
 import UserContext from "../context/UserContext";
 
 function Basket() {
@@ -24,33 +24,41 @@ function Basket() {
     });
   }
 
-  function orderItem(event){
+  function orderItem(event) {
     const id = event.target.value;
-
+    postOrder(loggedInUser.username, id).then(() => {
+      deleteFromBasket(loggedInUser.username, id).then(() => {
+        setDeletedItems((currentDeletedItem) => {
+          return (currentDeletedItem += 1);
+        });
+      });
+    });
   }
 
   let counter = 1;
   return (
     <>
       <p>user basket</p>
-      {basket.map((item) => {
-        return (
-          <li key={`Basket ${counter}`}>
-            <p>Item: {counter++}</p>
-            <h4>Id:{item.item_id}</h4>
-            <h3>Name: {item.item_name}</h3>
-            <p>Price: £{item.price / 100}</p>
-            <p>Description: {item.description}</p>
-            <img src={item.img_url} alt="" />
-            <button value={item.item_id} onClick={removeFromBasket}>
-              Remove Item
-            </button>
-            <button value={item.item_id} onClick={orderItem}>
-              Order Item
-            </button>
-          </li>
-        );
-      })}
+      <ul>
+        {basket.map((item) => {
+          return (
+            <li key={`Basket ${counter}`}>
+              <p>Item: {counter++}</p>
+              <h4>Id:{item.item_id}</h4>
+              <h3>Name: {item.item_name}</h3>
+              <p>Price: £{item.price / 100}</p>
+              <p>Description: {item.description}</p>
+              <img src={item.img_url} alt="" />
+              <button value={item.item_id} onClick={removeFromBasket}>
+                Remove Item
+              </button>
+              <button value={item.item_id} onClick={orderItem}>
+                Order Item
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 }

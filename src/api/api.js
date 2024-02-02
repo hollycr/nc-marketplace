@@ -102,9 +102,27 @@ const postUser = (user) => {
 };
 
 const postOrder = (username, id) => {
-  return axios.post(
-    `https://nc-marketplace-sem-4.onrender.com/api/users/${username}/orders`
-  );
+  return axios
+    .post(
+      `https://nc-marketplace-sem-4.onrender.com/api/users/${username}/orders`,
+      { item_id: id }
+    )
+    .then(({ data }) => {
+      console.log(data);
+      return data;
+    });
+};
+
+const getOrders = (username) => {
+  return axios
+    .get(
+      `https://nc-marketplace-sem-4.onrender.com/api/users/${username}/orders`
+    )
+    .then(({ data }) => {
+      console.log(data, "orders data");
+      const {items}=data
+      return items;
+    });
 };
 
 // post users/:username/basket
@@ -120,4 +138,6 @@ export {
   getUsers,
   deleteFromBasket,
   postUser,
+  postOrder,
+  getOrders,
 };
