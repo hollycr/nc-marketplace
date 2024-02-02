@@ -3,9 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getCategories } from "./api/api";
 import "./App.css";
-import Header from "./components/Header";
 import ItemsList from "./components/ItemsList";
-import Search from "./components/Search";
 import NavigationManager from "./components/NavigationManager";
 import Sell from "./components/Sell";
 import User from "./components/User";
@@ -20,8 +18,6 @@ function App() {
 
   return (
     <>
-      <Header />
-      <Search />
       <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
         <NavigationManager />
         <Routes>
